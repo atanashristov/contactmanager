@@ -1,6 +1,7 @@
 {
   "rules": {
-    "member-access": [true, "no-public"]
+    "member-access": [true, "no-public"],
+    "no-console": false
   },
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
