@@ -11,7 +11,7 @@ class Contact extends React.Component<IContact, IState> {
     showContactInfo: false
   }
 
-  onShowClick = (name: string, e: React.MouseEvent) => {
+  handleShowClick = (name: string, e: React.MouseEvent) => {
     console.log(e.target)
     console.log(`${name} clicked.`)
 
@@ -20,7 +20,7 @@ class Contact extends React.Component<IContact, IState> {
     })
   }
 
-  onDeleteClick = (id: string, dispatch: DispatchType) => {
+  handleDeleteClick = (id: string, dispatch: DispatchType) => {
     dispatch({ type: 'DELETE_CONTACT', payload: id })
   }
 
@@ -37,12 +37,12 @@ class Contact extends React.Component<IContact, IState> {
               <h4>
                 {name}
                 <i
-                  onClick={this.onShowClick.bind(this, name)}
+                  onClick={this.handleShowClick.bind(this, name)}
                   className="fas fa-sort-down"
                   style={{ cursor: 'pointer' }}
                 />
                 <i
-                  onClick={this.onDeleteClick.bind(this, id, dispatch)}
+                  onClick={this.handleDeleteClick.bind(this, id, dispatch)}
                   className="fas fa-times"
                   style={{ cursor: 'pointer', float: 'right', color: 'red' }}
                 />
