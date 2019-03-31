@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Consumer } from '../context'
+import { Consumer } from '../../context'
 import Contact from './Contact'
 
 class Contacts extends React.Component<{}> {

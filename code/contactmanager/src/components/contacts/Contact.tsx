@@ -1,19 +1,12 @@
 import * as React from 'react'
-import { Consumer } from '../context'
-import { DispatchType } from '../types'
-
-interface IProps {
-  id: string
-  name: string
-  email: string
-  phone: string
-}
+import { Consumer } from '../../context'
+import { DispatchType, IContact } from '../../types'
 
 interface IState {
   showContactInfo: boolean
 }
 
-class Contact extends React.Component<IProps, IState> {
+class Contact extends React.Component<IContact, IState> {
   state = {
     showContactInfo: false
   }
