@@ -3,12 +3,11 @@ import * as React from 'react'
 interface IProps {
   label: string
   name: string
-  value: string
-  placeholder: string
+  value?: string
+  placeholder?: string
   type?: string
-  onChange: any
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
-
 export const TextInputGroup: React.FunctionComponent<IProps> = ({
   label,
   name,

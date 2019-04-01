@@ -4,12 +4,13 @@ import { Consumer } from '../../context'
 import { DispatchType, IContact } from '../../types'
 import { TextInputGroup } from '../layout/TextInputGroup'
 
+const defaultState: IContact = {
+  name: '',
+  email: '',
+  phone: ''
+}
 class AddContact extends React.Component<{}, IContact> {
-  state = {
-    name: '',
-    email: '',
-    phone: ''
-  }
+  state = { ...defaultState }
 
   handleChange = (
     e:
@@ -32,11 +33,7 @@ class AddContact extends React.Component<{}, IContact> {
       phone
     }
     dispatch({ type: 'ADD_CONTACT', payload: newContact })
-    this.setState({
-      name: '',
-      email: '',
-      phone: ''
-    })
+    this.setState({ ...defaultState })
   }
 
   render() {
