@@ -4,6 +4,7 @@ import AddContact from './components/contacts/AddContact'
 import Contacts from './components/contacts/Contacts'
 import Header from './components/layout/Header'
 import About from './components/pages/About'
+import NotFound from './components/pages/NotFound'
 import PageWithIdParameter from './components/pages/PageWithIdParameter'
 
 import { Provider } from './context'
@@ -22,8 +23,9 @@ class App extends React.Component {
               <Switch>
                 <Route exact={true} path="/" component={Contacts} />
                 <Route exact={true} path="/contact/add" component={AddContact} />
-                <Route exact={true} path="/about" component={About} />
+                <Route path="/about" component={About} />
                 <Route exact={true} path="/page/:id" component={PageWithIdParameter} />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </div>

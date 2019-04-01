@@ -27,7 +27,7 @@ const Header: React.FunctionComponent<IProps> = props => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/about/:id" className="nav-link">
+              <Link to="/about" className="nav-link">
                 <i className="fas fa-question">&nbsp;</i>About
               </Link>
             </li>
