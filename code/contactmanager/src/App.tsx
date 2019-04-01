@@ -1,5 +1,5 @@
 import * as React from 'react'
-import AddContact from './components/contacts/AddContact_ref'
+import AddContact from './components/contacts/AddContact'
 import Contacts from './components/contacts/Contacts'
 import Header from './components/layout/Header'
 import { Provider } from './context'

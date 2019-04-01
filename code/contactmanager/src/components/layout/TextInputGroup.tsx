@@ -1,3 +1,4 @@
+import * as classnames from 'classnames'
 import * as React from 'react'
 
 interface IProps {
@@ -23,11 +24,13 @@ export const TextInputGroup: React.FunctionComponent<IProps> = ({
     <input
       type={type}
       name={name}
-      className="is-invalid form-control form-control-lg"
+      className={classnames('form-control form-control-lg', {
+        'is-invalid': error
+      })}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
     />
-    <div className="invalid-feedback">This is wrong</div>
+    {error && <div className="invalid-feedback">{error}</div>}
   </div>
 )

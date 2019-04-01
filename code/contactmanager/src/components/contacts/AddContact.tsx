@@ -32,12 +32,15 @@ class AddContact extends React.Component<{}, IContact> {
     // Check for errors
     if (name === '') {
       this.setState({ errors: { name: 'Name is required' } })
+      return
     }
     if (email === '') {
       this.setState({ errors: { email: 'Email is required' } })
+      return
     }
     if (phone === '') {
       this.setState({ errors: { phone: 'Phone is required' } })
+      return
     }
 
     const newContact = {
@@ -69,7 +72,7 @@ class AddContact extends React.Component<{}, IContact> {
                     placeholder="Enter Name..."
                     value={name}
                     onChange={this.handleChange}
-                    error={error.name}
+                    error={errors.name}
                   />
                   <TextInputGroup
                     label="Email"
@@ -77,7 +80,7 @@ class AddContact extends React.Component<{}, IContact> {
                     placeholder="Enter Email..."
                     value={email}
                     onChange={this.handleChange}
-                    error={error.email}
+                    error={errors.email}
                   />
                   <TextInputGroup
                     label="Phone"
@@ -85,7 +88,7 @@ class AddContact extends React.Component<{}, IContact> {
                     placeholder="Enter Phone..."
                     value={phone}
                     onChange={this.handleChange}
-                    error={error.phone}
+                    error={errors.phone}
                   />
                   <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
                 </form>
