@@ -1,8 +1,9 @@
 import * as React from 'react'
+import { RouteComponentProps } from 'react-router-dom'
 import * as uuid from 'uuid'
 import { Consumer } from '../../context'
 import { DispatchType, IContact } from '../../types'
-import { TextInputGroup } from '../layout/TextInputGroup'
+import TextInputGroup from '../layout/TextInputGroup'
 
 const defaultState: IContact = {
   name: '',
@@ -11,7 +12,9 @@ const defaultState: IContact = {
   errors: {}
 }
 
-class AddContact extends React.Component<{}, IContact> {
+type Props = RouteComponentProps<{}>
+
+class AddContact extends React.Component<Props, IContact> {
   state = { ...defaultState }
 
   handleChange = (
@@ -52,6 +55,7 @@ class AddContact extends React.Component<{}, IContact> {
     }
     dispatch({ type: 'ADD_CONTACT', payload: newContact })
     this.setState({ ...defaultState })
+    this.props.history.push('/')
   }
 
   render() {

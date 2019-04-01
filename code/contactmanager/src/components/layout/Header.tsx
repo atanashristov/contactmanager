@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 interface IProps {
   branding?: string
@@ -16,9 +17,19 @@ const Header: React.FunctionComponent<IProps> = props => {
         <div>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <a href="/" className="nav-link">
-                Home
-              </a>
+              <Link to="/" className="nav-link">
+                <i className="fas fa-home">&nbsp;</i>Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/contact/add" className="nav-link">
+                <i className="fas fa-plus">&nbsp;</i>Add
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/about/:id" className="nav-link">
+                <i className="fas fa-question">&nbsp;</i>About
+              </Link>
             </li>
           </ul>
         </div>

@@ -10,7 +10,8 @@ interface IProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   error?: string
 }
-export const TextInputGroup: React.FunctionComponent<IProps> = ({
+
+const TextInputGroup: React.FunctionComponent<IProps> = ({
   label,
   name,
   value,
@@ -34,3 +35,5 @@ export const TextInputGroup: React.FunctionComponent<IProps> = ({
     {error && <div className="invalid-feedback">{error}</div>}
   </div>
 )
+
+export default TextInputGroup

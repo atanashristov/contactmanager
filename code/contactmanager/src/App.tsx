@@ -4,6 +4,8 @@ import AddContact from './components/contacts/AddContact'
 import Contacts from './components/contacts/Contacts'
 import Header from './components/layout/Header'
 import About from './components/pages/About'
+import PageWithIdParameter from './components/pages/PageWithIdParameter'
+
 import { Provider } from './context'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -21,6 +23,7 @@ class App extends React.Component {
                 <Route exact={true} path="/" component={Contacts} />
                 <Route exact={true} path="/contact/add" component={AddContact} />
                 <Route exact={true} path="/about" component={About} />
+                <Route exact={true} path="/page/:id" component={PageWithIdParameter} />
               </Switch>
             </div>
           </div>
