@@ -7,8 +7,10 @@ import { TextInputGroup } from '../layout/TextInputGroup'
 const defaultState: IContact = {
   name: '',
   email: '',
-  phone: ''
+  phone: '',
+  errors: {}
 }
+
 class AddContact extends React.Component<{}, IContact> {
   state = { ...defaultState }
 
@@ -26,18 +28,31 @@ class AddContact extends React.Component<{}, IContact> {
   handleSubmit = (dispatch: DispatchType, e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { name, email, phone } = this.state
+
+    // Check for errors
+    if (name === '') {
+      this.setState({ errors: { name: 'Name is required' } })
+    }
+    if (email === '') {
+      this.setState({ errors: { email: 'Email is required' } })
+    }
+    if (phone === '') {
+      this.setState({ errors: { phone: 'Phone is required' } })
+    }
+
     const newContact = {
       id: uuid(),
       name,
       email,
-      phone
+      phone,
+      errors: {}
     }
     dispatch({ type: 'ADD_CONTACT', payload: newContact })
     this.setState({ ...defaultState })
   }
 
   render() {
-    const { email, name, phone } = this.state
+    const { email, name, phone, errors } = this.state
 
     return (
       <Consumer>
@@ -54,6 +69,7 @@ class AddContact extends React.Component<{}, IContact> {
                     placeholder="Enter Name..."
                     value={name}
                     onChange={this.handleChange}
+                    error={error.name}
                   />
                   <TextInputGroup
                     label="Email"
@@ -61,6 +77,7 @@ class AddContact extends React.Component<{}, IContact> {
                     placeholder="Enter Email..."
                     value={email}
                     onChange={this.handleChange}
+                    error={error.email}
                   />
                   <TextInputGroup
                     label="Phone"
@@ -68,6 +85,7 @@ class AddContact extends React.Component<{}, IContact> {
                     placeholder="Enter Phone..."
                     value={phone}
                     onChange={this.handleChange}
+                    error={error.phone}
                   />
                   <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
                 </form>
