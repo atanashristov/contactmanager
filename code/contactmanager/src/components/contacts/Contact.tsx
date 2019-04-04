@@ -1,3 +1,4 @@
+import axios from 'axios'
 import * as React from 'react'
 import { Consumer } from '../../context'
 import { DispatchType, IContact } from '../../types'
@@ -21,7 +22,9 @@ class Contact extends React.Component<IContact, IState> {
   }
 
   handleDeleteClick = (id: string, dispatch: DispatchType) => {
-    dispatch({ type: 'DELETE_CONTACT', payload: id })
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .then(res => dispatch({ type: 'DELETE_CONTACT', payload: id }))
   }
 
   render() {

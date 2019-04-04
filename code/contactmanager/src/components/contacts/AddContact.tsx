@@ -1,6 +1,7 @@
+import axios from 'axios'
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import * as uuid from 'uuid'
+// import * as uuid from 'uuid'
 import { Consumer } from '../../context'
 import { DispatchType, IContact } from '../../types'
 import TextInputGroup from '../layout/TextInputGroup'
@@ -47,13 +48,17 @@ class AddContact extends React.Component<Props, IContact> {
     }
 
     const newContact = {
-      id: uuid(),
+      // id: uuid(),
       name,
       email,
       phone,
       errors: {}
     }
-    dispatch({ type: 'ADD_CONTACT', payload: newContact })
+
+    axios
+      .post('https://jsonplaceholder.typicode.com/users', newContact)
+      .then(res => dispatch({ type: 'ADD_CONTACT', payload: res.data }))
+
     this.setState({ ...defaultState })
     this.props.history.push('/')
   }
