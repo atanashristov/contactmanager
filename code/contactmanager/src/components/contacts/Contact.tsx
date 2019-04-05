@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import { Consumer } from '../../context'
 import { DispatchType, IContact } from '../../types'
 
@@ -21,10 +22,17 @@ class Contact extends React.Component<IContact, IState> {
     })
   }
 
-  handleDeleteClick = (id: string, dispatch: DispatchType) => {
-    axios
-      .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then(res => dispatch({ type: 'DELETE_CONTACT', payload: id }))
+  handleDeleteClick = async (id: string, dispatch: DispatchType) => {
+    // axios
+    //   .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+    //   .then(res => dispatch({ type: 'DELETE_CONTACT', payload: id }))
+
+    try {
+      await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      dispatch({ type: 'DELETE_CONTACT', payload: id })
+    } catch (e) {
+      // TODO
+    }
   }
 
   render() {
@@ -49,6 +57,17 @@ class Contact extends React.Component<IContact, IState> {
                   className="fas fa-times"
                   style={{ cursor: 'pointer', float: 'right', color: 'red' }}
                 />
+                <Link to={`contact/edit/${id}`}>
+                  <i
+                    className="fas fa-pencil-alt"
+                    style={{
+                      cursor: 'pointer',
+                      float: 'right',
+                      color: 'black',
+                      marginRight: '1rem'
+                    }}
+                  />
+                </Link>
               </h4>
               {showContactInfo && (
                 <ul className="list-group">

@@ -13,10 +13,24 @@ const defaultState: IContact = {
   errors: {}
 }
 
-type Props = RouteComponentProps<{}>
+type Props = RouteComponentProps<{
+  id: string
+}>
 
-class AddContact extends React.Component<Props, IContact> {
+class EditContact extends React.Component<Props, IContact> {
   state = { ...defaultState }
+
+  async componentDidMount() {
+    const { id } = this.props.match.params
+    const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+    const contact = res.data
+    this.setState({
+      id,
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone
+    })
+  }
 
   handleChange = (
     e:
@@ -47,26 +61,18 @@ class AddContact extends React.Component<Props, IContact> {
       return
     }
 
-    const newContact = {
-      // id: uuid(),
+    const { id } = this.props.match.params
+    const updContact = {
       name,
       email,
-      phone,
-      errors: {}
+      phone
     }
 
-    // axios
-    //   .post('https://jsonplaceholder.typicode.com/users', newContact)
-    //   .then(res => dispatch({ type: 'ADD_CONTACT', payload: res.data }))
+    const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updContact)
 
-    try {
-      const res = await axios.post('https://jsonplaceholder.typicode.com/users', newContact)
-      dispatch({ type: 'ADD_CONTACT', payload: res.data })
-      this.setState({ ...defaultState })
-      this.props.history.push('/')
-    } catch (e) {
-      // TODO
-    }
+    dispatch({ type: 'UPDATE_CONTACT', payload: res.data })
+    this.setState({ ...defaultState })
+    this.props.history.push('/')
   }
 
   render() {
@@ -78,7 +84,7 @@ class AddContact extends React.Component<Props, IContact> {
           const { dispatch } = value
           return (
             <div className="card mb-3">
-              <div className="card-header">Add Contact</div>
+              <div className="card-header">Edit Contact</div>
               <div className="card-body">
                 <form onSubmit={this.handleSubmit.bind(this, dispatch)}>
                   <TextInputGroup
@@ -105,7 +111,7 @@ class AddContact extends React.Component<Props, IContact> {
                     onChange={this.handleChange}
                     error={errors.phone}
                   />
-                  <input type="submit" value="Add Contact" className="btn btn-light btn-block" />
+                  <input type="submit" value="Update Contact" className="btn btn-light btn-block" />
                 </form>
               </div>
             </div>
@@ -116,4 +122,4 @@ class AddContact extends React.Component<Props, IContact> {
   }
 }
 
-export default AddContact
+export default EditContact
