@@ -22,14 +22,19 @@ class EditContact extends React.Component<Props, IContact> {
 
   async componentDidMount() {
     const { id } = this.props.match.params
-    const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
-    const contact = res.data
-    this.setState({
-      id,
-      name: contact.name,
-      email: contact.email,
-      phone: contact.phone
-    })
+
+    try {
+      const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+      const contact = res.data
+      this.setState({
+        id,
+        name: contact.name,
+        email: contact.email,
+        phone: contact.phone
+      })
+    } catch (e) {
+      // TODO
+    }
   }
 
   handleChange = (
@@ -68,11 +73,15 @@ class EditContact extends React.Component<Props, IContact> {
       phone
     }
 
-    const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updContact)
+    try {
+      const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updContact)
 
-    dispatch({ type: 'UPDATE_CONTACT', payload: res.data })
-    this.setState({ ...defaultState })
-    this.props.history.push('/')
+      dispatch({ type: 'UPDATE_CONTACT', payload: res.data })
+      this.setState({ ...defaultState })
+      this.props.history.push('/')
+    } catch (e) {
+      // TODO
+    }
   }
 
   render() {
