@@ -3,20 +3,13 @@ import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 // import * as uuid from 'uuid'
 import { Consumer } from '../../context'
-import { DispatchType, IContact } from '../../types'
+import { defaultContactFormState, DispatchType, IContactFormState, validateContact } from '../../types'
 import TextInputGroup from '../layout/TextInputGroup'
-
-const defaultState: IContact = {
-  name: '',
-  email: '',
-  phone: '',
-  errors: {}
-}
 
 type Props = RouteComponentProps<{}>
 
-class AddContact extends React.Component<Props, IContact> {
-  state = { ...defaultState }
+class AddContact extends React.Component<Props, IContactFormState> {
+  state = { ...defaultContactFormState() }
 
   handleChange = (
     e:
@@ -33,17 +26,10 @@ class AddContact extends React.Component<Props, IContact> {
     e.preventDefault()
     const { name, email, phone } = this.state
 
-    // Check for errors
-    if (name === '') {
-      this.setState({ errors: { name: 'Name is required' } })
-      return
-    }
-    if (email === '') {
-      this.setState({ errors: { email: 'Email is required' } })
-      return
-    }
-    if (phone === '') {
-      this.setState({ errors: { phone: 'Phone is required' } })
+    const errors = validateContact(name, email, phone)
+    this.setState({ errors: { ...errors } })
+
+    if (Object.keys(errors).some(x => errors[x])) {
       return
     }
 
@@ -51,8 +37,7 @@ class AddContact extends React.Component<Props, IContact> {
       // id: uuid(),
       name,
       email,
-      phone,
-      errors: {}
+      phone
     }
 
     // axios
@@ -62,7 +47,7 @@ class AddContact extends React.Component<Props, IContact> {
     try {
       const res = await axios.post('https://jsonplaceholder.typicode.com/users', newContact)
       dispatch({ type: 'ADD_CONTACT', payload: res.data })
-      this.setState({ ...defaultState })
+      this.setState({ ...defaultContactFormState() })
       this.props.history.push('/')
     } catch (e) {
       // TODO
